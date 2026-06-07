@@ -63,11 +63,10 @@ if [[ ${input[extra_files_script]} != "null" ]]; then
     echo "extra_files_script '${input[extra_files_script]}' is not executable"
     exit 1
   fi
+
   extra_files_script=$(realpath "${input[extra_files_script]}")
   mkdir "${tmpdir}/extra-files"
-  pushd "${tmpdir}/extra-files"
-  $extra_files_script
-  popd
+  EXTRA_FILES_DIR="${tmpdir}/extra-files" $extra_files_script
   args+=("--extra-files" "${tmpdir}/extra-files")
 fi
 
